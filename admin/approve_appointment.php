@@ -13,7 +13,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $appt_id = (int)$_GET['id'];
 
 $stmt = $conn->prepare("
-    SELECT a.id, a.status, a.date, a.time,
+    SELECT a.id, a.patient_id, a.status, a.date, a.time,
            COALESCE(p.name,  a.guest_name)  AS patient_name,
            COALESCE(p.email, a.guest_email) AS patient_email,
            d.name AS doctor_name,
@@ -69,11 +69,22 @@ if ($upd->execute()) {
         }
     }
 
+    if (!empty($appt['patient_id'])) {
+        $title = "Appointment Confirmed";
+        $message = "Your appointment with " . $appt['doctor_name'] . " has been confirmed.";
+        $type = "appointment"; 
+        $created_at = date('Y-m-d H:i:s');
+
+        $notif_stmt = $conn->prepare("INSERT INTO notifications (patient_id, title, message, type, is_read, is_starred, created_at) VALUES (?, ?, ?, ?, 0, 0, ?)");
+        $notif_stmt->bind_param("issss", $appt['patient_id'], $title, $message, $type, $created_at);
+        $notif_stmt->execute();
+        $notif_stmt->close();
+    }
+
     $msg = 'Appointment confirmed. Patient has been notified.';
 } else {
     $msg = 'Failed to confirm appointment.';
 }
-
 $upd->close();
 $conn->close();
 header('Location: manage_appointments.php?success=' . urlencode($msg));

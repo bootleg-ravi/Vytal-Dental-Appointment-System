@@ -143,8 +143,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_booking'])) {
             if ($chk->get_result()->num_rows > 0) $errors[] = 'You already have an appointment at this time.';
             $chk->close();
         }
-        if (!$errors) {
-            $stmt = $conn->prepare("INSERT INTO appointments (patient_id,doctor_id,service_id,date,time,chief_complaint,status) VALUES (?,?,?,?,?,'pending',?)");
+if (!$errors) {
+            $stmt = $conn->prepare("INSERT INTO appointments (patient_id,doctor_id,service_id,date,time,chief_complaint,status) VALUES (?,?,?,?,?,?,'pending')");
             $stmt->bind_param('iiisss', $patient_id, $doctor_id, $service_id, $date, $time, $complaint);
             if ($stmt->execute()) {
                 $appt_id = $stmt->insert_id;

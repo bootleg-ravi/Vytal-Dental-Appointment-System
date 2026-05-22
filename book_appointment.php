@@ -16,9 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($stmt->num_rows > 0) {
         echo "Time slot already booked.";
-    } else {
-        $stmt = $conn->prepare('INSERT INTO appointments (patient_id, doctor_id, service_id, date, time, status) VALUES (?, ?, ?, ?, ?, "pending")');
+} else {
+       $stmt = $conn->prepare('INSERT INTO appointments (patient_id, doctor_id, service_id, date, time) VALUES (?, ?, ?, ?, ?)');
+        
         $stmt->bind_param('iiiss', $patient_id, $doctor_id, $service_id, $date, $time);
+        
         if ($stmt->execute()) {
             echo "Appointment booked successfully!";
         } else {
