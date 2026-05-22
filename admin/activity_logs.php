@@ -99,6 +99,26 @@ body { font-family: 'Lato', sans-serif; background: var(--bg); color: var(--ink)
 .sidebar { width: 230px; background: var(--sidebar); min-height: 100vh; position: fixed; left: 0; top: 0; bottom: 0; display: flex; flex-direction: column; z-index: 100; overflow-y: auto; }
 .sidebar-logo { padding: 22px 20px; border-bottom: 1px solid rgba(255,255,255,.07); display: flex; align-items: center; gap: 10px; font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: #fff; }
 .sidebar-logo i { color: #00c9a7; font-size: 1.3rem; }
+.sidebar-role {
+    margin: 0 12px 8px;
+    padding: 7px 12px;
+    background: rgba(255,255,255,.05);
+    border-radius: 8px;
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: rgba(255,255,255,.4);
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 14px;
+}
+.sidebar-role .role-badge {
+    background: <?= $is_admin ? '#00c9a7' : '#f59e0b' ?>;
+    color: #111;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: .65rem;
+}
 .nav-section { padding: 14px 16px 4px; font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.28); }
 .nav-item { display: flex; align-items: center; gap: 11px; padding: 10px 20px; color: rgba(255,255,255,.55); text-decoration: none; font-size: .84rem; font-weight: 500; transition: all .18s; position: relative; }
 .nav-item:hover { background: rgba(255,255,255,.06); color: #fff; }
@@ -109,10 +129,10 @@ body { font-family: 'Lato', sans-serif; background: var(--bg); color: var(--ink)
 .nav-item.danger { color: rgba(239,68,68,.6); }
 .nav-item.danger:hover { background: rgba(239,68,68,.1); color: #ef4444; }
 .sidebar-footer { margin-top: auto; padding: 16px; border-top: 1px solid rgba(255,255,255,.07); }
-.admin-chip { display: flex; align-items: center; gap: 10px; }
-.admin-avatar { width: 32px; height: 32px; border-radius: 8px; background: var(--teal); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: .8rem; color: #fff; flex-shrink: 0; }
-.admin-name { font-size: .8rem; font-weight: 700; color: #fff; }
-.admin-role { font-size: .68rem; color: rgba(255,255,255,.35); text-transform: capitalize; }
+.admin-chip{display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(255,255,255,.06);border-radius:10px}
+.admin-avatar{width:32px;height:32px;border-radius:50%;background:#00c9a7;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;color:#111;font-size:.9rem;flex-shrink:0}
+.admin-info .name{font-size:.82rem;font-weight:700;color:#fff}
+.admin-info .role{font-size:.68rem;color:rgba(255,255,255,.4);text-transform:capitalize}
 
 .main { margin-left: 230px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
 
@@ -191,6 +211,10 @@ body { font-family: 'Lato', sans-serif; background: var(--bg); color: var(--ink)
   <div class="sidebar-logo">
     <i class="bi bi-tooth-fill"></i> Vytal Dental
   </div>
+      <div class="sidebar-role">
+        <span>Logged in as</span>
+        <span class="role-badge"><?= strtoupper($admin_role) ?></span>
+    </div>
 
   <div class="nav-section">Main</div>
   <a href="dashboard.php"           class="nav-item"><i class="bi bi-speedometer2"></i> Dashboard</a>
@@ -202,24 +226,24 @@ body { font-family: 'Lato', sans-serif; background: var(--bg); color: var(--ink)
   <?php endif; ?>
 
   <div class="nav-section">Analytics</div>
-  <a href="patient_flow.php"        class="nav-item"><i class="bi bi-graph-up-arrow"></i> Patient Flow</a>
-  <a href="reports.php"             class="nav-item"><i class="bi bi-file-earmark-bar-graph"></i> Reports</a>
-  <a href="attendance_report.php"   class="nav-item"><i class="bi bi-clipboard2-pulse"></i> Attendance</a>
-  <a href="activity_logs.php"       class="nav-item active"><i class="bi bi-journal-text"></i> Activity Logs</a>
-  <a href="accessibility_report.php" class="nav-item"><i class="bi bi-universal-access"></i> Accessibility</a>
+    <a href="patient_flow.php"         class="nav-item"><i class="bi bi-bar-chart-line"></i> Patient Flow</a>
+    <a href="reports.php"              class="nav-item"><i class="bi bi-file-earmark-text"></i> Reports</a>
+    <a href="attendance_report.php"    class="nav-item"><i class="bi bi-person-check"></i> Attendance</a>
+    <a href="activity_logs.php"        class="nav-item active"><i class="bi bi-clipboard-data"></i> Activity Logs</a>
+    <a href="accessibility_report.php" class="nav-item"><i class="bi bi-universal-access"></i> Accessibility</a>
 
   <div class="nav-section">Account</div>
   <a href="logout.php" class="nav-item danger"><i class="bi bi-box-arrow-right"></i> Logout</a>
 
-  <div class="sidebar-footer">
-    <div class="admin-chip">
-      <div class="admin-avatar"><?= strtoupper(substr($admin_name,0,1)) ?></div>
-      <div>
-        <div class="admin-name"><?= htmlspecialchars($admin_name) ?></div>
-        <div class="admin-role"><?= htmlspecialchars($admin_role) ?></div>
-      </div>
+    <div class="sidebar-footer">
+        <div class="admin-chip">
+            <div class="admin-avatar"><?= strtoupper(substr($admin_name,0,1)) ?></div>
+            <div class="admin-info">
+                <div class="name"><?= htmlspecialchars($admin_name) ?></div>
+                <div class="role"><?= $admin_role ?></div>
+            </div>
+        </div>
     </div>
-  </div>
 </aside>
 
 <div class="main">

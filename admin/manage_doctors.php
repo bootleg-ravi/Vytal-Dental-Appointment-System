@@ -78,6 +78,26 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);min-hei
 .sidebar{width:230px;background:var(--sidebar);min-height:100vh;position:fixed;left:0;top:0;bottom:0;display:flex;flex-direction:column;z-index:100;overflow-y:auto}
 .sidebar-logo{padding:22px 20px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:#fff}
 .sidebar-logo i{color:#00c9a7;font-size:1.3rem}
+.sidebar-role {
+    margin: 0 12px 8px;
+    padding: 7px 12px;
+    background: rgba(255,255,255,.05);
+    border-radius: 8px;
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: rgba(255,255,255,.4);
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 14px;
+}
+.sidebar-role .role-badge {
+    background: <?= $is_admin ? '#00c9a7' : '#f59e0b' ?>;
+    color: #111;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: .65rem;
+}
 .nav-section{padding:14px 16px 4px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.28)}
 .nav-item{display:flex;align-items:center;gap:11px;padding:10px 20px;color:rgba(255,255,255,.55);text-decoration:none;font-size:.84rem;font-weight:500;transition:all .18s;position:relative}
 .nav-item:hover{color:#fff;background:rgba(255,255,255,.05)}
@@ -158,6 +178,10 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);min-hei
 
 <aside class="sidebar">
     <div class="sidebar-logo"><i class="bi bi-tooth"></i> Vytal Dental</div>
+        <div class="sidebar-role">
+        <span>Logged in as</span>
+        <span class="role-badge"><?= strtoupper($admin_role) ?></span>
+    </div>
     <div class="nav-section">Main</div>
     <a href="dashboard.php"            class="nav-item"><i class="bi bi-speedometer2"></i> Dashboard</a>
     <a href="manage_appointments.php"  class="nav-item"><i class="bi bi-calendar-check"></i> Appointments</a>
