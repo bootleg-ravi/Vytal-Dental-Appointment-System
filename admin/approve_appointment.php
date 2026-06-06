@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION['admin_id'])) { header('Location: login.php'); exit; }
 require_once '../config/config.php';
-require_once '../includes/EmailService.php';
+//require_once '../includes/EmailService.php';
 require_once '../includes/ActivityLogger.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -51,7 +51,7 @@ if ($upd->execute()) {
         'Confirmed appointment #' . $appt_id . ' for: ' . $appt['patient_name']
     );
 
-    if ($appt['patient_email']) {
+   /* if ($appt['patient_email']) {
         try {
             $emailService = new EmailService();
             $emailService->sendAppointmentApproved(
@@ -68,7 +68,7 @@ if ($upd->execute()) {
             
         }
     }
-
+*/
     if (!empty($appt['patient_id'])) {
         $title = "Appointment Confirmed";
         $message = "Your appointment with " . $appt['doctor_name'] . " has been confirmed.";

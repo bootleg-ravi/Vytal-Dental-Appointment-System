@@ -792,61 +792,31 @@ img { display: block; max-width: 100%; }
   </div>
 </section>
 
-<footer class="footer">
+<footer class="footer" style="padding: 30px 20px; background-color: var(--ink); color: var(--slate); text-align: center; border-top: 1px solid #1f2937;">
   <div class="footer-inner">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="footer-logo"><i class="bi bi-tooth-fill"></i> Vytal Dental</div>
-        <p class="footer-tagline">Premium dental care in Imus — book online, get treated with excellence, leave smiling.</p>
+    
+    <div class="footer-brand" style="margin-bottom: 15px;">
+      <div class="footer-logo" style="color: #fff; font-size: 1.25rem; font-weight: bold;">
+        <i class="bi bi-tooth-fill" style="color: var(--teal);"></i> Vytal Dental
       </div>
-            <div class="footer-col">
-        <h4>Admin Portal</h4>
-        <ul>
-          <li><a href="admin/login.php">Log in</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Patient Portal</h4>
-        <ul>
-          <li><a href="patient/register.php">Create Account</a></li>
-          <li><a href="patient/login.php">Sign In</a></li>
-          <li><a href="patient/book_appointment.php">Book Appointment</a></li>
-          <li><a href="patient/appointments_calendar.php">View Calendar</a></li>
-          <li><a href="patient/forgot_password.php">Reset Password</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Services</h4>
-        <ul>
-          <?php foreach (array_slice($services, 0, 5) as $s): ?>
-          <li><a href="patient/book_appointment.php"><?= htmlspecialchars($s['name']) ?></a></li>
-          <?php endforeach; ?>
-          <?php if (empty($services)): ?>
-          <li><a href="#">Dental Check-up</a></li>
-          <li><a href="#">Teeth Whitening</a></li>
-          <li><a href="#">Dental Braces</a></li>
-          <li><a href="#">Tooth Extraction</a></li>
-          <?php endif; ?>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Clinic</h4>
-        <ul>
-          <li><a href="#dentists">Our Dentists</a></li>
-          <li><a href="#how-it-works">How It Works</a></li>
-          <li><a href="#contact">Contact Us</a></li>
-          <li><a href="admin/login.php">Staff Login</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-        </ul>
-      </div>
+      <p style="font-size: 0.85rem; margin-top: 5px;">Premium dental care in Imus.</p>
     </div>
+
+    <div class="footer-links" style="display: flex; justify-content: center; gap: 20px; margin-bottom: 15px; font-size: 0.85rem;">
+      <a href="#dentists" style="color: var(--slate); text-decoration: none;">Our Dentists</a>
+      <a href="#how-it-works" style="color: var(--slate); text-decoration: none;">How It Works</a>
+      <a href="#contact" style="color: var(--slate); text-decoration: none;">Contact Us</a>
+      <a href="#" style="color: var(--slate); text-decoration: none;">Privacy Policy</a>
+    </div>
+
     <div class="footer-bottom">
-      <div class="footer-copy">&copy; <?= date('Y') ?> Vytal Dental. All rights reserved.</div>
+      <div class="footer-copy" style="font-size: 0.8rem;">
+        &copy; <?= date('Y') ?> Vytal Dental. All rights reserved.
+      </div>
     </div>
+
   </div>
 </footer>
-
 <script>
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {

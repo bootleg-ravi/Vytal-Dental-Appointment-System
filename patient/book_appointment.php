@@ -130,10 +130,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_booking'])) {
     $complaint  = $conn->real_escape_string(trim($_POST['chief_complaint'] ?? ''));
 
     $errors = [];
-    if (!$service_id) $errors[] = 'Please select a service.';
+if (!$service_id) $errors[] = 'Please select a service.';
     if (!$doctor_id)  $errors[] = 'Please select a dentist.';
     if (!$date)       $errors[] = 'Please select a date.';
     if (!$time)       $errors[] = 'Please select a time slot.';
+
+    if (empty($errors)) {
+        $dow = date('l', strtotime($date));
+        $cap_stmt = $conn->prepare("SELECT max_patients FROM dentist_schedule WHERE doctor_id=? AND day_of_week=? AND is_active=1 LIMIT 1");
+        $cap_stmt->bind_param('is', $doctor_id, $dow);
+        $cap_stmt->execute();
+        $cap_res = $cap_stmt->get_result();
+        $max_patients = $cap_res->num_rows > 0 ? (int)$cap_res->fetch_assoc()['max_patients'] : 1; 
+        $cap_stmt->close();
+
+        $count_stmt = $conn->prepare("SELECT COUNT(*) as current_bookings FROM appointments WHERE doctor_id=? AND date=? AND time=? AND status != 'cancelled'");
+        $count_stmt->bind_param('iss', $doctor_id, $date, $time);
+        $count_stmt->execute();
+        $current_bookings = (int)$count_stmt->get_result()->fetch_assoc()['current_bookings'];
+        $count_stmt->close();
+
+        if ($current_bookings >= $max_patients) {
+            $errors[] = 'Sorry, this time slot was just booked by someone else. Please choose another time.';
+        }
+    }
 
     if ($is_logged_in) {
         if (!$errors) {
@@ -848,8 +868,8 @@ textarea.form-control { resize: vertical; min-height: 80px; }
                     <div>
                         <div class="form-group">
                             <label class="form-label">Select Date</label>
-                            <input type="date" id="apptDate" min="<?= date('Y-m-d', strtotime('+1 day')) ?>"
-                                   onchange="loadSlots(this.value)" style="min-width:170px">
+                        <input type="date" id="apptDate" min="<?= date('Y-m-d', strtotime('+1 day')) ?>" max="<?= date('Y-m-d', strtotime('+3 months')) ?>"
+       onchange="loadSlots(this.value)" style="min-width:170px">
                         </div>
                     </div>
                     <div id="slotsArea">

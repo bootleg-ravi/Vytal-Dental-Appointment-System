@@ -114,7 +114,7 @@ body { font-family:'Lato',sans-serif; background:var(--bg); color:var(--text); m
 .sidebar-footer { margin-top:auto; padding:12px; border-top:1px solid var(--border); }
 .user-chip { display:flex; align-items:center; gap:9px; padding:8px 10px; background:rgba(255,255,255,.04); border-radius:8px; border:1px solid var(--border); }
 .user-avatar { width:30px; height:30px; background:var(--teal); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:800; color:#0e1621; font-size:.8rem; flex-shrink:0; }
-.u-name { font-size:.78rem; font-weight:700; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.u-name{font-size:.78rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width: 130px;display: block;}
 .u-role { font-size:.65rem; color:var(--muted); }
 
 .main { flex:1; display:flex; flex-direction:column; min-width:0; }

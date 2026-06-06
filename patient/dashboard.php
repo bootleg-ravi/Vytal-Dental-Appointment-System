@@ -78,7 +78,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text);min-he
 .user-chip{display:flex;align-items:center;gap:9px;padding:8px 10px;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid var(--border)}
 .user-avatar{width:30px;height:30px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;color:#0e1621;font-size:.8rem;flex-shrink:0;overflow:hidden}
 .user-avatar img{width:100%;height:100%;object-fit:cover}
-.u-name{font-size:.78rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.u-name{font-size:.78rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width: 130px;display: block;}
 .u-role{font-size:.65rem;color:var(--muted)}
 
 .main{margin-left:220px;flex:1;display:flex;flex-direction:column;min-width:0}
@@ -211,8 +211,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text);min-he
   <!-- HERO -->
   <div class="hero">
     <div class="hero-greeting">Patient Dashboard</div>
-    <div class="hero-name">Hello, <?= htmlspecialchars(explode(' ',$patient_name)[0]) ?> 👋</div>
-    <div class="hero-sub"><?= date('l, F j, Y') ?></div>
+<h1>Hello, <?= htmlspecialchars($_SESSION['patient_name'], ENT_QUOTES, 'UTF-8') ?> 👋</h1>    <div class="hero-sub"><?= date('l, F j, Y') ?></div>
     <div class="hero-btns">
       <a href="book_appointment.php"      class="btn btn-teal"><i class="bi bi-plus-lg"></i> Book Appointment</a>
       <a href="appointments_calendar.php" class="btn btn-ghost"><i class="bi bi-calendar3"></i> View Calendar</a>

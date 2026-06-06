@@ -299,7 +299,7 @@ body {
     font-size: .8rem;
     flex-shrink: 0;
 }
-.u-name { font-size: .78rem; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.u-name{font-size:.78rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width: 130px;display: block;}
 .u-role { font-size: .65rem; color: var(--muted); }
 
 .main {
